@@ -36,7 +36,6 @@ io.on('connection', async (socket) => {
             console.log("User registered")
             socket.emit('success')
         }
-        console.log(data)
         
     })
     socket.on('login', async (data) => {
