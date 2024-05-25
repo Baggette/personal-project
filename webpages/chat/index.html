@@ -11,9 +11,11 @@
 <body>
     <div class="chat"> 
         <ul id="messages"></ul>
-            <form id="form" action="">
-                <input id="textbox" autocomplete="off" /><button id="send">Send</button>
-            </form>
+    </div>
+    <div class="message">
+        <form id="form" action="">
+            <input id="textbox" autocomplete="off" /><button id="send">Send</button>
+        </form>
     </div>
 <script>
     var socket = io();

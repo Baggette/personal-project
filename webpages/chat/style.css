@@ -20,11 +20,6 @@ div.chat {
     color: white;
     margin: auto;   
     margin-top: 5vh;
-    width: 120vh;
-    padding: 10px;
-    padding-top: 20vh;
-    padding-bottom: 60vh;
-    background-color: rgba(255, 255, 255, 1);
     border-radius: 10px;
     text-align: center;
     color: black;
@@ -41,6 +36,17 @@ div.chat #messages {
     list-style-type: none;
 }
 
-div.chat #form {
-    
+div.message {
+    margin: 10px;
+    margin-top: 5px;
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color:beige;
+    color: black;
+    font-size: larger;
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+
 }
