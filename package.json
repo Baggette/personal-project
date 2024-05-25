@@ -15,5 +15,13 @@
     "url": "https://github.com/Baggette/personal-project/issues"
   },
   "homepage": "https://github.com/Baggette/personal-project#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "better-sqlite3": "^10.0.0",
+    "express": "^4.19.2",
+    "quick.db": "^9.1.7",
+    "socket.io": "^4.7.5",
+    "uuid": "^9.0.1"
+  }
 }

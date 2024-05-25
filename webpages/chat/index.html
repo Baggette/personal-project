@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat</title>
+</head>
+<script src="/socket.io/socket.io.js"></script>
+<body>
+
+    <ul id="messages"></ul>
+        <form id="form" action="">
+            <input id="textbox" autocomplete="off" /><button id="send">Send</button>
+        </form>
+
+<script>
+    var socket = io();
+    
+    var form = document.getElementById('form');
+    var textbox = document.getElementById('textbox');
+    var send = document.getElementById('send');
+
+    function getCookie(name){
+        let cookiearr = document.cookie.split(';');
+        for(let i=0; i < cookiearr.length; i++){
+            let cookiepair = cookiearr[i].split('=');
+            if(name == cookiepair[0].trim()){
+                return decodeURIComponent(cookiepair[1]);
+            }
+        }
+    }
+    
+    const token = getCookie('token');
+    const username = getCookie('username');
+
+    if(!token || !username){
+        window.location.href = '/login';
+    }
+
+    send.addEventListener('click', (e) => {
+        e.preventDefault();
+        if(textbox.value){
+            const message = textbox.value;
+            socket.emit('chat', message, username, token);
+            textbox.value = '';
+        }
+    })
+    socket.on('error', async (error) => {
+        await window.alert(error);
+        window.location.href = '/login';
+    })
+    socket.on('chat', (message, username) => {
+        var item = document.createElement('li');
+        item.textContent = `${username}: ${message}`;
+        document.getElementById('messages').appendChild(item);
+    }); 
+</script>
+</body>
+</html>

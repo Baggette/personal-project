@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+</head>
+<script src="/socket.io/socket.io.js"></script>
+<body>
+
+<div>
+    <h2>Register</h2>
+    <form id="form">
+        <h7>Username:</h7>
+        <input type="text" id="Username" autocomplete="off" required/>
+        <h7>Password:</h7>
+        <input type="text" id="Password" autocomplete="off" required/>
+        <button id="register">Register</button>
+    </form>
+</div>
+<script>
+  var socket = io();
+
+  var register = document.getElementById('register');
+  var username = document.getElementById('Username');
+  var password = document.getElementById('Password');
+
+  register.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!username.value || !password.value) {
+      return window.alert('Username and password are required!');
+    }
+    if (username.value && password.value) {
+      socket.emit('register', {
+        username: username.value,
+        password: password.value});
+      //console.log('clicked!');
+    }
+  });
+  socket.on('success', () => {
+    window.alert('Registration successful!');
+    window.location.href = '/login';
+  });
+  socket.on('error', (error) => {
+    window.alert(error);
+  });
+
+</script>
+</body>
+</html>

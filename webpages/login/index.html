@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<script src="/socket.io/socket.io.js"></script>
+<body>
+    <h1>Login</h1>
+    
+    <form >
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="text" id="password" name="password" required>
+        </div>
+        <div>
+            <button id="login">Login</button>
+        </div>
+    </form>
+<script>
+var socket = io();
+
+var login = document.getElementById('login');
+var username = document.getElementById('username');
+var password = document.getElementById('password');
+
+login.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!username.value || !password.value) {
+        return window.alert('Username and password are required to login!');
+    }
+    if (username.value && password.value) {
+        socket.emit('login', {
+            username: username.value,
+            password: password.value
+        });
+    }
+})
+
+socket.on('success', (token, username) => {
+    window.alert('Login successful!');
+    document.cookie = `token=${token}; expires=${new Date(Date.now() + 86400e3).toUTCString()}; path=/`;
+    document.cookie = `username=${username}; expires=${new Date(Date.now() + 86400e3).toUTCString()}; path=/`;
+    window.location.href = '/chat';
+});
+socket.on('error', (error) => {
+    window.alert(error);
+});
+</script>    
+</body>
+</html>
