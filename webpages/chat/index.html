@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chat</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
 </head>
 <script src="/socket.io/socket.io.js"></script>
 <body>
-
-    <ul id="messages"></ul>
-        <form id="form" action="">
-            <input id="textbox" autocomplete="off" /><button id="send">Send</button>
-        </form>
-
+    <div class="chat"> 
+        <ul id="messages"></ul>
+            <form id="form" action="">
+                <input id="textbox" autocomplete="off" /><button id="send">Send</button>
+            </form>
+    </div>
 <script>
     var socket = io();
     
@@ -50,9 +52,14 @@
         window.location.href = '/login';
     })
     socket.on('chat', (message, username) => {
-        var item = document.createElement('li');
-        item.textContent = `${username}: ${message}`;
-        document.getElementById('messages').appendChild(item);
+        var item1 = document.createElement('li');
+        item1.textContent = `${username}`;
+        item1.setAttribute('id', 'chatuser');
+        document.getElementById('messages').appendChild(item1);
+        var item2 = document.createElement('li');   
+        item2.textContent = `${message}`;
+        item2.setAttribute('id', 'chatmessage');
+        document.getElementById('messages').appendChild(item2);
     }); 
 </script>
 </body>

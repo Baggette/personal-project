@@ -1,0 +1,69 @@
+html {
+    background-image: linear-gradient(
+  220deg,
+  hsl(245deg 58% 22%) 0%,
+  hsl(245deg 50% 21%) 14%,
+  hsl(243deg 43% 19%) 29%,
+  hsl(242deg 36% 17%) 43%,
+  hsl(243deg 31% 15%) 57%,
+  hsl(244deg 23% 13%) 71%,
+  hsl(247deg 16% 11%) 86%,
+  hsl(240deg 9% 9%) 100%
+);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100%;
+    font-family: 'Nunito';
+}
+
+div.register {
+    color: white;
+    margin: auto;
+    margin-top: 5%;
+    width: 25%;
+    padding: 10px;
+    padding-bottom: 50px;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    text-align: center;
+    color: black;
+}
+
+div.register #username {
+    margin: 10px;
+    margin-bottom: 5px;
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color:beige;
+    color: black;
+    font-size: larger;
+}
+
+div.register #password {
+    margin: 10px;
+    margin-top: 5px;
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color:beige;
+    color: black;
+    font-size: larger;
+}   
+
+div.register #register {
+    background-color: #00b300;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px 88px;
+    padding-bottom: 10px;
+    font-size: larger;
+}
+
+div.register #register:hover {
+    background-color: #009900;
+}
+
+div.register #register:active {
+    background-color: #008000;
+}

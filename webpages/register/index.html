@@ -4,26 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Page</title>
+    <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
 </head>
 <script src="/socket.io/socket.io.js"></script>
 <body>
 
-<div>
-    <h2>Register</h2>
+<div class="register">
+    <h2>Create your account!</h2>
     <form id="form">
-        <h7>Username:</h7>
-        <input type="text" id="Username" autocomplete="off" required/>
-        <h7>Password:</h7>
-        <input type="password" id="Password" autocomplete="off" required/>
-        <button id="register">Register</button>
-    </form>
+      <div>
+        <input type="text" id="username" autocomplete="off" placeholder="username" required/>
+      </div>
+      <div>  
+        <input type="password" id="password" autocomplete="off" placeholder="password" required/>
+      </div>  
+      <div>
+        <button id="register">REGISTER</button>
+      </div>
+      </form>
 </div>
 <script>
   var socket = io();
 
   var register = document.getElementById('register');
-  var username = document.getElementById('Username');
-  var password = document.getElementById('Password');
+  var username = document.getElementById('username');
+  var password = document.getElementById('password');
 
   register.addEventListener('click', (e) => {
     e.preventDefault();

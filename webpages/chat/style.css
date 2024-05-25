@@ -1,0 +1,46 @@
+html {
+    background-image: linear-gradient(
+  220deg,
+  hsl(220deg 71% 34%) 0%,
+  hsl(215deg 65% 31%) 14%,
+  hsl(210deg 59% 29%) 29%,
+  hsl(205deg 52% 26%) 43%,
+  hsl(200deg 47% 24%) 57%,
+  hsl(195deg 40% 21%) 71%,
+  hsl(189deg 34% 18%) 86%,
+  hsl(185deg 28% 16%) 100%
+);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100%;
+    font-family: 'Nunito';
+}
+
+div.chat {
+    color: white;
+    margin: auto;   
+    margin-top: 5vh;
+    width: 120vh;
+    padding: 10px;
+    padding-top: 20vh;
+    padding-bottom: 60vh;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    text-align: center;
+    color: black;
+}
+
+div.chat #messages {
+    margin: 10px;
+    margin-bottom: 5px;
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    color: black;
+    font-size: larger;
+    list-style-type: none;
+}
+
+div.chat #form {
+    
+}

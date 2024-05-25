@@ -4,24 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
 </head>
 <script src="/socket.io/socket.io.js"></script>
 <body>
+    <div class="login">
     <h1>Login</h1>
     
     <form >
         <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="username" placeholder="username" required>
         </div>
         <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" placeholder="password" required>
         </div>
         <div>
-            <button id="login">Login</button>
+            <button id="login">LOG IN</button>
         </div>
     </form>
+    </div>
 <script>
 var socket = io();
 
