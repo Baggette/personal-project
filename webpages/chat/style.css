@@ -1,6 +1,7 @@
-html {
+html 
+{
     background-image: linear-gradient(
-  220deg,
+    220deg,
   hsl(220deg 71% 34%) 0%,
   hsl(215deg 65% 31%) 14%,
   hsl(210deg 59% 29%) 29%,
@@ -9,7 +10,8 @@ html {
   hsl(195deg 40% 21%) 71%,
   hsl(189deg 34% 18%) 86%,
   hsl(185deg 28% 16%) 100%
-);
+  );
+
     background-repeat: no-repeat;
     background-attachment: fixed;
     height: 100%;
@@ -23,6 +25,13 @@ div.chat {
     border-radius: 10px;
     text-align: center;
     color: black;
+}
+
+div.chat {
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 175vh;
+    height: 60vh;
+    overflow-y: scroll;
 }
 
 div.chat #messages {

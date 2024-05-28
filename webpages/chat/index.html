@@ -24,6 +24,11 @@
     var textbox = document.getElementById('textbox');
     var send = document.getElementById('send');
 
+    function scrollToBottom() {
+        var chatDiv = document.querySelector('.chat');
+        chatDiv.scrollTop = chatDiv.scrollHeight;
+    }
+
     function getCookie(name){
         let cookiearr = document.cookie.split(';');
         for(let i=0; i < cookiearr.length; i++){
@@ -62,6 +67,7 @@
         item2.textContent = `${message}`;
         item2.setAttribute('id', 'chatmessage');
         document.getElementById('messages').appendChild(item2);
+        scrollToBottom();
     }); 
 </script>
 </body>
