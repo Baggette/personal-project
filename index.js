@@ -9,10 +9,14 @@ const { QuickDB } = require('quick.db')
 const db = new QuickDB()
 const bcrypt = require('bcrypt')
 const {v4: uuidv4} = require('uuid')
+const socketIORateLimiter = require('@d3vision/socket.io-rate-limiter')
 
 app.use(express.static('webpages'))
 
 io.on('connection', async (socket) => {
+
+    socket.use(socketIORateLimiter({maxBurst: 3, perSecond: 1, gracePeriodInSeconds: 5, emitClientHtmlError: true}, socket))
+
     console.log("a user connected")
     socket.on('disconnect', () => {
         console.log("user disconnected")
@@ -97,7 +101,7 @@ io.on('connection', async (socket) => {
         }
     })
 
-    /*socket.on("typing", async (username) => {
+    socket.on("typing", async (username) => {
 
         const typingusr = await db.get("typing")
         if(typingusr.includes(username)) return console.log(`${username} is already typing`)
@@ -108,12 +112,18 @@ io.on('connection', async (socket) => {
     })
 
     socket.on("stoppedtyping", async (username) => {
+        try{
         var usernames = await db.get("typing")
         usernames = usernames.filter(e => e !== username)
         await db.set("typing", usernames)
         socket.emit('stoppedtyping', usernames)
         console.log(`${username} stopped typing`)
-    })*/
+        }
+        catch(e){
+            console.log(e)
+            return;
+        }
+    })
 })
 server.listen(port, () => {
     console.log(`Running on port ${port}`)
