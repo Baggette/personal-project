@@ -10,24 +10,24 @@
 <script src="/socket.io/socket.io.js"></script>
 <body>
     <div class="chat"> 
-        <ul id="messages"></ul>
+        <ul id="messages">
+        </ul>
+        <p id="typing"></p>
+        <div class="message">
+            <form id="form" action="">
+                <input id="textbox" autocomplete="off" /><button id="send">Send</button>
+            </form>
+        </div>
     </div>
-    <div class="message">
-        <form id="form" action="">
-            <input id="textbox" autocomplete="off" /><button id="send">Send</button>
-        </form>
-    </div>
+    
 <script>
     var socket = io();
     
+    let typingTimer = null;
+    var time;                
     var form = document.getElementById('form');
     var textbox = document.getElementById('textbox');
     var send = document.getElementById('send');
-
-    function scrollToBottom() {
-        var chatDiv = document.querySelector('.chat');
-        chatDiv.scrollTop = chatDiv.scrollHeight;
-    }
 
     function getCookie(name){
         let cookiearr = document.cookie.split(';');
@@ -45,6 +45,42 @@
     if(!token || !username){
         window.location.href = '/login';
     }
+    
+    window.onload = async () => {
+        socket.emit("load");
+    }
+
+    function starttyping(){
+        time = new Date().getTime();
+    }
+
+    //on keyup, start the countdown
+    textbox.addEventListener('input', () => {
+        clearTimeout(typingTimer);
+        socket.emit('typing', username);
+        console.log('typing!!');
+        timeout = setTimeout(doneTyping, 5000);
+    });
+
+    //user is "finished typing," do something
+    function doneTyping () {
+        console.log('done typing');
+        socket.emit('stoppedtyping', username);
+    }
+    textbox.addEventListener('input', (e) => {
+        
+    })
+
+    function scrollToBottom() {
+
+        const elem = document.querySelector('.chat');
+        const scrollDiff = (elem.scrollHeight - elem.scrollTop) - elem.clientHeight;
+
+        if(scrollDiff < 450){
+         elem.scrollTop = elem.scrollHeight;
+        }
+    }
+
 
     send.addEventListener('click', (e) => {
         e.preventDefault();
@@ -59,16 +95,56 @@
         window.location.href = '/login';
     })
     socket.on('chat', (message, username) => {
-        var item1 = document.createElement('li');
-        item1.textContent = `${username}`;
-        item1.setAttribute('id', 'chatuser');
-        document.getElementById('messages').appendChild(item1);
-        var item2 = document.createElement('li');   
-        item2.textContent = `${message}`;
-        item2.setAttribute('id', 'chatmessage');
-        document.getElementById('messages').appendChild(item2);
+
+        //get the messages div
+        var messages = document.getElementById('messages');
+        //create a new li element to place the username and message in
+        //var username = document.createElement('li');
+        //var message = document.createElement('li');
+
+        //username.textContent = `${username}`;
+        //message.textContent = `${message}`;
+
+        //username.setAttribute('id', 'username');
+        //message.setAttribute('id', 'chatmessage');
+        
+        messages.insertAdjacentHTML("beforeend", `
+            <li id="username">${username}</li>
+            <li id="chatmessage">${message}</li>
+            <li><br></li>`);
+
         scrollToBottom();
     }); 
+
+    function formatUsernames(usernames) {
+    if (usernames.length === 0) {
+        return "";
+    } else if (usernames.length === 1) {
+        return `${usernames[0]} is typing`;
+    } else if (usernames.length === 2) {
+        return `${usernames[0]} and ${usernames[1]} are typing`;
+    } else {
+        const allButLast = usernames.slice(0, -1).join(', ');
+        const last = usernames[usernames.length - 1];
+        return `${allButLast}, and ${last} are typing`;
+    }
+}
+
+    socket.on('typing', (username) => {
+        var messages = document.getElementById('typing');
+        messages.innerHTML = `${formatUsernames(username)} is typing...`;
+        scrollToBottom();
+    });
+
+    socket.on('stoppedtyping', async (usernames) =>{
+        var messages = document.getElementById('typing');
+        if(usernames == null){
+            messages.innerHTML = '';
+            return;
+        }
+        messages.innerHTML = `${formatUsernames(usernames)} is typing...`;
+        console.log(usernames);
+    })
 </script>
 </body>
 </html>
