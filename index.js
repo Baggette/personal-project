@@ -87,7 +87,7 @@ io.on('connection', async (socket) => {
     })
 
     socket.on('load', async () => {
-        const messageid = Number(await db.get('messages.amount'))
+        const messageid = Number(await db.get('messages.amount')) - 1
         
         for(let i = 0/*messageid - 40*/; i <= messageid; i++)
         {
