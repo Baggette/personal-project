@@ -72,7 +72,7 @@ io.on('connection', async (socket) => {
     socket.on('chat', async (message, username, token) => {
         if(await db.get(`${username}-token`) == token)
         {
-            if(Number(await db.get('messages.amount') == null || Number(await db.get('messages.amount') > 0) || Number(await db.get('messages.amount') == NaN))) {
+            if(Number(await db.get('messages.amount') == null || Number(await db.get('messages.amount') < 0) || Number(await db.get('messages.amount') == NaN))) {
                 await db.set('messages.amount', '0')
             }
             const messageid = Number(await db.get('messages.amount'))
