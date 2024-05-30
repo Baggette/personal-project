@@ -15,8 +15,6 @@ app.use(express.static('webpages'))
 
 io.on('connection', async (socket) => {
 
-    socket.use(socketIORateLimiter({maxBurst: 3, perSecond: 1, gracePeriodInSeconds: 5, emitClientHtmlError: true}, socket))
-
     console.log("a user connected")
     socket.on('disconnect', () => {
         console.log("user disconnected")
@@ -101,6 +99,11 @@ io.on('connection', async (socket) => {
         }
     })
 
+})
+
+io.on('connection', (socket) => {
+    socket.use(socketIORateLimiter({maxBurst: 3, perSecond: 1, gracePeriodInSeconds: 5, emitClientHtmlError: true}, socket))
+
     function formatUsernames(usernames) {
         if (usernames.length === 0) {
             return "";
@@ -144,6 +147,7 @@ io.on('connection', async (socket) => {
         }
     })
 })
+
 server.listen(port, () => {
     console.log(`Running on port ${port}`)
 })
