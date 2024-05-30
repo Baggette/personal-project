@@ -59,7 +59,7 @@
         clearTimeout(typingTimer);
         socket.emit('typing', username);
         console.log('typing!!');
-        timeout = setTimeout(doneTyping, 5000);
+        typingTimer = setTimeout(doneTyping, 5000);
     });
 
     //user is "finished typing," do something
