@@ -101,22 +101,41 @@ io.on('connection', async (socket) => {
         }
     })
 
+    function formatUsernames(usernames) {
+        if (usernames.length === 0) {
+            return "";
+        } else if (usernames.length === 1) {
+            return `${usernames[0]} is typing`;
+        } else if (usernames.length === 2) {
+            return `${usernames[0]} and ${usernames[1]} are typing`;
+        } else {
+            const allButLast = usernames.slice(0, -1).join(', ');
+            const last = usernames[usernames.length - 1];
+            return `${allButLast}, and ${last} are typing`;
+        }
+    }
+
     socket.on("typing", async (username) => {
 
-        const typingusr = await db.get("typing")
-        if(typingusr.includes(username)) return console.log(`${username} is already typing`)
+        const typingusr = await db.get(`message.typing.${username}`)
+        if(typingusr == true) return console.log(`${username} is already typing`)
 
-        await db.push("typing", typingusr)
-        socket.emit('typing', `${await db.get("typing")}`)
+        await db.set(`message.typing.${username}`, true)
+        await db.push("typing", username)
+        const usernames = formatUsernames(await db.get("typing"))
+        console.log(usernames)
+        socket.broadcast.emit('typing', `${usernames}`)
         console.log(`${username} is typing`)
     })
 
     socket.on("stoppedtyping", async (username) => {
         try{
+        await db.set(`message.typing.${username}`, false)
         var usernames = await db.get("typing")
         usernames = usernames.filter(e => e !== username)
         await db.set("typing", usernames)
-        socket.emit('stoppedtyping', usernames)
+        rmusr = formatUsernames(usernames)
+        socket.broadcast.emit('stoppedtyping', rmusr)
         console.log(`${username} stopped typing`)
         }
         catch(e){

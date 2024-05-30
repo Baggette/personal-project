@@ -132,18 +132,18 @@
 
     socket.on('typing', (username) => {
         var messages = document.getElementById('typing');
-        messages.innerHTML = `${formatUsernames(username)} is typing...`;
+        messages.innerHTML = `${username}`;
         scrollToBottom();
     });
 
-    socket.on('stoppedtyping', async (usernames) =>{
+    socket.on('stoppedtyping', async (rmusr) =>{
         var messages = document.getElementById('typing');
-        if(usernames == null){
+        if(rmusr == null){
             messages.innerHTML = '';
             return;
         }
-        messages.innerHTML = `${formatUsernames(usernames)} is typing...`;
-        console.log(usernames);
+        messages.innerHTML = `${rmusr}`;
+        console.log(rmusr);
     })
 </script>
 </body>
