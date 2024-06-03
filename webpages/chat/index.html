@@ -57,7 +57,7 @@
     //on keyup, start the countdown
     textbox.addEventListener('input', () => {
         clearTimeout(typingTimer);
-        socket.emit('typing', username);
+        socket.volatile.emit('typing', username);
         console.log('typing!!');
         typingTimer = setTimeout(doneTyping, 5000);
     });
@@ -65,7 +65,7 @@
     //user is "finished typing," do something
     function doneTyping () {
         console.log('done typing');
-        socket.emit('stoppedtyping', username);
+        socket.volatile.emit('stoppedtyping', username);
     }
     textbox.addEventListener('input', (e) => {
         

@@ -102,7 +102,6 @@ io.on('connection', async (socket) => {
 })
 
 io.on('connection', (socket) => {
-    socket.use(socketIORateLimiter({maxBurst: 3, perSecond: 1, gracePeriodInSeconds: 5, emitClientHtmlError: true}, socket))
 
     function formatUsernames(usernames) {
         if (usernames.length === 0) {
@@ -119,7 +118,7 @@ io.on('connection', (socket) => {
     }
 
     socket.on("typing", async (username) => {
-
+        //socket.use(socketIORateLimiter({maxBurst: 3, perSecond: 1, gracePeriodInSeconds: 5, emitClientHtmlError: true}, socket))
         const typingusr = await db.get(`message.typing.${username}`)
         if(typingusr == true) return console.log(`${username} is already typing`)
 
@@ -132,6 +131,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on("stoppedtyping", async (username) => {
+        //socket.use(socketIORateLimiter({maxBurst: 3, perSecond: 1, gracePeriodInSeconds: 5, emitClientHtmlError: true}, socket))
         try{
         await db.set(`message.typing.${username}`, false)
         var usernames = await db.get("typing")
