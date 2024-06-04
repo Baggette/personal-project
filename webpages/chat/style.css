@@ -29,11 +29,32 @@ div.chat {
 
 div.chat {
     background-color: rgba(255, 255, 255, 0.5);
-    width: 175vh;
+    width: 150vh;
     height: 90vh;
     -ms-overflow-style: none; /* for Internet Explorer, Edge */
     scrollbar-width: none; /* for Firefox */
     overflow-y: scroll;
+}
+
+input[type=text] {
+    width: 50vh;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+
+}
+
+div.chat #send {
+    background-color: #00b300;
+    border-color: none;
+    text-align: center;
+    padding: 1vh 5vh;
+    padding-bottom: 1vh;
+    border-radius: 5px;
+    font-size: large;
+
 }
 
 div.chat #messages {
